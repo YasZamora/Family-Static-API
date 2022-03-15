@@ -9,11 +9,16 @@ update this file to implement the following already declared methods:
 from random import randint
 
 class FamilyStructure:
+
     def __init__(self, last_name):
         self.last_name = last_name
 
         # example list of members
-        self._members = []
+        self._members = [{
+            "id": self._generateId(),
+            "first_name": "John",
+            "last_name": last_name
+        }]
 
     # read-only: Use this method to generate random members ID's when adding members into the list
     def _generateId(self):
@@ -21,15 +26,46 @@ class FamilyStructure:
 
     def add_member(self, member):
         # fill this method and update the return
-        pass
+        result = {"done": False}
+        id = self._generateId()
+        try:
+            member['id']=id
+            self._members.append(member)
+            return self._members
+        except Exception as e:
+            print(f"result: {e}")    
+
 
     def delete_member(self, id):
         # fill this method and update the return
-        pass
+        result = {"done": False}
+        try:
+            for element in self._members:
+                if int(element["id"]) == int(id):
+                    self._members.remove(element)
+                    result ["done"] = True
+            # self._members.remove(self.get_member(id))
+            # self._members = list(filter(lambda member: id != member["id"], self._members)) 
+            # self._members = [member for member in self._members if not (member['id'] == id)]
+            # print(self._members)
+            # result["done"] = True
+        except Exception as e:
+            print(f"get_member: {e}")
+        return result
+
+    # def get_member(self, id):
+    #     # fill this method and update the return
+    #     pass 
 
     def get_member(self, id):
-        # fill this method and update the return
-        pass
+        result = {}
+        try:
+            for member in self._members:
+                if member["id"] == id:
+                    result = member
+        except Exception as e:
+            print(f"get_member: {e}")
+        return result                    
 
     # this method is done, it returns a list with all the family members
     def get_all_members(self):
