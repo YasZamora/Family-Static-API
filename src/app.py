@@ -35,7 +35,6 @@ def get_members():
 @app.route('/member/<int:id>', methods=['GET'])
 def get_member(id):
     one_member = jackson_family.get_member(id)
-    print(one_member)
     return jsonify(one_member), 200
     # id = request.args["id"]
     # response = jackson_family.get_member(id)    
@@ -43,20 +42,16 @@ def get_member(id):
 
 @app.route('/member/<int:id>', methods=['DELETE'])
 def delete_member_by_id(id):
-    id = request.args["id"]
-    print('-' * 80)
-    print('deelte')
-    print(id)
-    response = jackson_family.delete_member(id) 
-    print(response)   
+    response = jackson_family.delete_member(id)  
     return jsonify(response), 200    
 
 @app.route('/member', methods=["POST"])
 def add_member_by_name():
     body = request.json
-    print(body)
     response = jackson_family.add_member(body)    
     return jsonify(response), 200    
+
+
 
 # this only runs if `$ python src/app.py` is executed
 if __name__ == '__main__':

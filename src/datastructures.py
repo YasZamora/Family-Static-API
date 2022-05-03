@@ -47,7 +47,12 @@ class FamilyStructure:
         # fill this method and update the return
         result = {"done": False}
         id = self._generateId()
+        # el siguiente código es para hacer que cuando reciba los datos de un miembro que ya tiene ID lo guarde con el ID que trae
+        if "id" in member:
+        # pop elimina un elemento de un diccionario y a la vez me retorna el valor del elemento eliminado, pop en python es como splice de js    
+            id=member.pop("id")
         try:
+        # para obtener un elemento de un diccionario es: el nombre del diccionario y [] con el nombre de la clave dentro por ejemplo: member['id]    
             member['id']=id
             self._members.append(member)
             return self._members
